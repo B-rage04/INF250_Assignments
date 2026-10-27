@@ -4,6 +4,8 @@ from skimage import data, exposure
 import matplotlib.pyplot as plt
 import numpy as np
 
+
+"""
 ## Question 1
 
 blob = data.binary_blobs()
@@ -21,7 +23,7 @@ ax[1].imshow(blob, vmin=0, cmap="gray", vmax=255)
 ax[1].set_xticks([])
 ax[1].set_yticks([])
 ax[1].set_title("Blob image")
-#plt.show()
+plt.show()
 
 percent_white = num_white / blob.size * 100
 percent_black = num_black / blob.size * 100
@@ -29,6 +31,8 @@ print("Question 1")
 print(f"{percent_white}% of the image is white")
 print(f"{percent_black}% of the image is black")
 print("*"*30)
+
+
 
 ## Question 2
 
@@ -52,7 +56,9 @@ ax[1].set_title("Coins image")
 print(f"Mean pixel value: {np.mean(coins)}")
 print(f"Mode: {np.argmax(np.bincount(coins.ravel()))}")
 print("*"*30)
-#plt.show()
+plt.show()
+
+
 
 ## Question 3
 
@@ -67,7 +73,8 @@ ax[1].imshow(brick, vmin=0, cmap="gray", vmax=255)
 ax[1].set_xticks([])
 ax[1].set_yticks([])
 ax[1].set_title("Brick image")
-#plt.show()
+plt.show()
+
 
 ## Question 4
 
@@ -101,7 +108,7 @@ ax[1].imshow(chelsea)
 ax[1].set_xticks([])
 ax[1].set_yticks([])
 ax[1].set_title("Chelsea color")
-#plt.show()
+plt.show()
 
 ## Question 5
 
@@ -127,11 +134,11 @@ ax[1,2].hist(b.ravel(), bins=256, range=(0,255), color="Blue")
 ax[1,2].set_title("Bluescale histogram")
 
 
-# plt.show()
+plt.show()
 
 ## Question 6
 
-
+coins = data.coins()
 coins_equ = exposure.equalize_hist(coins)
 
 coins_equ = coins_equ * 255
@@ -158,7 +165,8 @@ ax[1,1].set_xticks([])
 ax[1,1].set_yticks([])
 ax[1,1].set_title("Equalized coins image")
 
-#plt.show()
+plt.show()
+
 
 ## Question 7
 
@@ -189,8 +197,8 @@ ax[1,1].set_xticks([])
 ax[1,1].set_yticks([])
 ax[1,1].set_title("Equalized microaneurysms image")
 
-#plt.show()
-
+plt.show()
+"""
 ## Question 8
 
 gravel = data.gravel()
@@ -221,3 +229,5 @@ ax[1,1].set_yticks([])
 ax[1,1].set_title("Equalized gravel image")
 
 plt.show()
+"""
+"""
