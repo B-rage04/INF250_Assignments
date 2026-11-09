@@ -67,9 +67,11 @@ implement the mean filtering and 'investigate' how the filter size affects smoot
 - display all results
 """
 
+# Image url
 image_url = ("https://raw.githubusercontent.com/opencv/opencv/"
 "master/samples/data/apple.jpg")
 
+# Load the image URL and apply the salt and pepper filter
 appl = io.imread(image_url, as_gray=True)
 spappl = random_noise(appl, mode='s&p', amount=0.1)
 
@@ -85,7 +87,7 @@ spappl11 = apply_mean_filter(spappl, 11)
 appl19 = apply_mean_filter(appl, 19)
 spappl19 = apply_mean_filter(spappl, 19)
 
-
+# Plot the original image, the salt and pepper image and all the filtered images
 fig, ax = plt.subplots(2, 4)
 
 # Plotting the original image and the filters
