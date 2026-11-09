@@ -14,14 +14,19 @@ Implement mean filtering and ivestigate how filter size affects image smoothing
 """
 
 # The mean filter function
-def apply_mean_filter(image, size):
+def apply_mean_filter(image, filter_size):
     """
     image: 2D array
     size: the size of the mean filter, eg: 3 = 3x3 mean filter
     """
-    for y in image:
-        for x in y:
-            print(x)
+    k = filter_size // 2 # given that the size input is an odd number, this will work
+    padded = np.pad(image, k, 'constant', constant_values=0) # pad the image so the negative values don't loop around
+
+    h, w = image.shape
+    out = np.zeros((h, w))
+    for i in range(h):
+        for j in range(w):
+            out[i][j] = np.sum(padded[i+k-k:i+k+k+1, j+k-k:j+k+k+1]) / (filter_size**2) # Spaghetti fixes everything
 
 brik = data.brick()
 
