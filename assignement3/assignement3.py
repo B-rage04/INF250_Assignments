@@ -1,9 +1,9 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-from skimage import io
+from skimage import io, data
 from skimage.util import random_noise, img_as_float
-from skimage import data
+from skimage.color import rgb2gray
 
 
 """
@@ -212,13 +212,13 @@ def apply_gaussian_filter(image, sigma, filter_size):
             out[i, j] = np.sum(wee * kernel) # weighted average
     return out
 
-
+"""
 fruits_image_url = ("https://raw.githubusercontent.com/opencv/opencv/master/samples/data/fruits.jpg")
 
 frimage = np.array(img_as_float(io.imread(fruits_image_url, as_gray=True)))
 gosh_frimage = apply_gaussian_filter(frimage, 2, 3)
 
-goshed_frimage_ohno = random_noise(frimage, mode='gaussian', var=0.01, rng=0)
+goshed_frimage_ohno = random_noise(frimage, mode='gaussian', var=0.02, rng=0)
 gosh_goshed_frimage_ohno = apply_gaussian_filter(goshed_frimage_ohno, 2, 3)
 
 
@@ -233,4 +233,158 @@ ax[0, 1].imshow(gosh_frimage, cmap='gray')
 ax[1, 0].imshow(goshed_frimage_ohno, cmap='gray')
 ax[1, 1].imshow(gosh_goshed_frimage_ohno, cmap='gray')
 plt.show()
+"""
 
+
+"""
+Task 5: The exact same but with laplacian filter for building 
+"""
+
+def laplacian_kernel(diagonal):
+    if diagonal:
+        return np.array([[1, 1, 1],[1, -8, 1],[1, 1, 1]], dtype=float)
+    else:
+        return np.array([[0, 1, 0],[1, -4, 1],[0, 1, 0]], dtype=float)
+
+def apply_laplacian_filter(image, diagonal):
+    kernel = laplacian_kernel(diagonal)
+    n = kernel.shape[0]
+    k = n // 2
+
+    padded = np.pad(image, k, mode='reflect') # pad the image so the negative values don't loop around
+
+    h, w = image.shape
+    out = np.zeros((h, w))
+    for i in range(h):
+        for j in range(w):
+            wee = padded[i:i+n, j:j+n] # window
+            out[i, j] = np.sum(wee * kernel) # weighted average
+    return out
+
+"""
+
+building_URL = ("https://raw.githubusercontent.com/opencv/opencv/master/samples/data/building.jpg")
+
+bimage = np.array(img_as_float(io.imread(building_URL, as_gray=True)))
+labimage = apply_laplacian_filter(bimage, diagonal=False)
+diagolabimage = apply_laplacian_filter(bimage, diagonal=True)
+
+fig, ax = plt.subplots(1, 3)
+
+ax[0].imshow(bimage, cmap='gray')
+ax[1].imshow(labimage, cmap='gray')
+ax[2].imshow(diagolabimage, cmap='gray')
+
+plt.show()
+"""
+
+""" 
+Task 6: laplacian edge stuff + image sharpening
+- get the building image
+- apply a laplacian filter to the image
+- add the laplacian result back to the orgiginal
+- display all 3 side by side
+"""
+
+"""
+building_URL = ("https://raw.githubusercontent.com/opencv/opencv/master/samples/data/building.jpg")
+
+bimage = np.array(img_as_float(io.imread(building_URL, as_gray=True)))
+labimage = apply_laplacian_filter(bimage, diagonal=True)
+bimagpluslabimage = np.clip(bimage - labimage, 0, 1) # Kernel has negative center, so subtract to add
+# Also force values between 0 and 1 because after sharpening, some values are outside that range, which
+# makes the autscaling of pyplot place the say 0.9 values which should be very bright to be some gray sad color
+
+
+fig, ax = plt.subplots(1, 3)
+
+ax[0].imshow(bimage, cmap='gray')
+ax[1].imshow(labimage, cmap='gray')
+ax[2].imshow(bimagpluslabimage, cmap='gray')
+
+plt.show()
+"""
+
+"""
+task 7 laplacian sharpening, overshoot and halo effects
+- load grayscale of butterfly
+- apply a single laplacian filter
+- sharpen the image with increasing sharpening effects
+- show all images and a 1D intensity profile
+- visualize the overshoot phenomenon along a single scan line
+
+note to Brage, denne oppgaven mangler den 1D delen
+Alle oppgavene mangles at puttes i en pdf også tihi
+"""
+
+"""
+boterfli_URL = ("https://raw.githubusercontent.com/opencv/opencv/master/samples/data/butterfly.jpg")
+
+boterflimage = np.array(img_as_float(io.imread(boterfli_URL, as_gray=True)))
+laboterflimage = apply_laplacian_filter(boterflimage, diagonal=False)
+
+c_list = [0, 0.5, 1, 2, 4, 8, 16]
+
+sharpor = [boterflimage - c * laboterflimage for c in c_list]
+
+fig, ax = plt.subplots(1, len(sharpor))
+
+for idx, (ax, arr) in enumerate(zip(ax, sharpor)):
+    im = ax.imshow(arr, cmap='gray', vmin=0, vmax=1)
+
+plt.show()
+"""
+
+"""
+Task 8 sobel filter to blox image
+
+load blox image
+convert from colour to grayscale
+display horizontal and vetical sobel kernels in matrix form
+apply horizontal sobel to grayscale image
+apply vertical sobel filter to grayscale image
+calculate sobel gradient magnitude and combine both results
+display original and processed images for comparison
+"""
+
+def apply_sobel_filter(image, dir):
+    if dir == 'x':
+        kernel = np.array([[-1, 0, 1],
+                            [-2, 0, 2],
+                            [-1, 0, 1]], dtype=float)
+    elif dir == 'y':
+        kernel = np.array([[-1, -2, -1],
+                            [0, 0, 0],
+                            [1, 2, 1]], dtype=float)
+        
+    n = kernel.shape[0]
+    k = n // 2
+
+    padded = np.pad(image, k, mode='reflect') # pad the image so the negative values don't loop around
+
+    h, w = image.shape
+    out = np.zeros((h, w))
+    for i in range(h):
+        for j in range(w):
+            wee = padded[i:i+n, j:j+n] # window
+            out[i, j] = np.sum(wee * kernel) # weighted average
+    return out
+
+
+blox_url = ("https://raw.githubusercontent.com/opencv/opencv/master/samples/data/blox.jpg")
+
+bloximage = np.array(img_as_float(io.imread(blox_url)))
+gbloximage = rgb2gray(bloximage)
+
+sobgbloximagex = apply_sobel_filter(gbloximage, 'x')
+sobgbloximagey = apply_sobel_filter(gbloximage, 'y')
+
+magnitude_sobgbbloximagexsobgbloximagey = np.sqrt(sobgbloximagex**2 + sobgbloximagey**2)
+
+fig, ax = plt.subplots(1, 4)
+ax[0].imshow(gbloximage, cmap='gray')
+ax[1].imshow(sobgbloximagex, cmap='gray')
+ax[2].imshow(sobgbloximagey, cmap='gray')
+ax[3].imshow(magnitude_sobgbbloximagexsobgbloximagey, cmap='gray')
+
+plt.show()
