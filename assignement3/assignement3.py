@@ -44,20 +44,31 @@ brik15 = apply_mean_filter(brik, 15)
 fig, ax = plt.subplots(1, 4)
 
 ax[0].imshow(brik, cmap='gray')
+ax[0].set_xticks([])
+ax[0].set_yticks([])
+ax[0].set_title("Original brick image")
 ax[1].imshow(brik3, cmap='gray')
+ax[1].set_xticks([])
+ax[1].set_yticks([])
+ax[1].set_title("3x3 mean filter")
 ax[2].imshow(brik9, cmap='gray')
+ax[2].set_xticks([])
+ax[2].set_yticks([])
+ax[2].set_title("9x9 mean filter")
 ax[3].imshow(brik15, cmap='gray')
+ax[3].set_xticks([])
+ax[3].set_yticks([])
+ax[3].set_title("15x15 mean filter")
 
 plt.show()
-"""
 
+"""
 
 """
 The end of task one --------------------------------------------------------------------------------
 """
-
-
 """
+
 Task 2
 Apply the mean_average_filter to the apple image
 implement the mean filtering and 'investigate' how the filter size affects smoothing.
@@ -92,26 +103,52 @@ fig, ax = plt.subplots(2, 4)
 
 # Plotting the original image and the filters
 ax[0][0].imshow(appl, cmap='gray')
+ax[0][0].set_xticks([])
+ax[0][0].set_yticks([])
+ax[0][0].set_title("Original image")
 ax[0][1].imshow(appl5, cmap='gray')
+ax[0][1].set_xticks([])
+ax[0][1].set_yticks([])
+ax[0][1].set_title("Original 5x5 mean filter")
 ax[0][2].imshow(appl11, cmap='gray')
+ax[0][2].set_xticks([])
+ax[0][2].set_yticks([])
+ax[0][2].set_title("Original 11x11 mean filter")
 ax[0][3].imshow(appl19, cmap='gray')
-
+ax[0][3].set_xticks([])
+ax[0][3].set_yticks([])
+ax[0][3].set_title("Original 19x19 mean filter")
 # Plotting the salt and pepper noised image and the filters
 ax[1][0].imshow(spappl, cmap='gray')
+ax[1][0].set_xticks([])
+ax[1][0].set_yticks([])
+ax[1][0].set_title("Original noisy image")
 ax[1][1].imshow(spappl5, cmap='gray')
+ax[1][1].set_xticks([])
+ax[1][1].set_yticks([])
+ax[1][1].set_title("Noisy 5x5 mean filter")
 ax[1][2].imshow(spappl11, cmap='gray')
+ax[1][2].set_xticks([])
+ax[1][2].set_yticks([])
+ax[1][2].set_title("Noisy 11x11 mean filter")
 ax[1][3].imshow(spappl19, cmap='gray')
+ax[1][3].set_xticks([])
+ax[1][3].set_yticks([])
+ax[1][3].set_title("Noisy 15x15 mean filter")
 
 plt.show()
+
+
+
 """
-
-
-
 """
 Task 3, do the same as task 2 but the apple is RGB
 """
 
-"""# it is the same link, so reuse the one from the previous task
+"""
+
+
+# it is the same link, so reuse the one from the previous task
 appl = np.array(img_as_float(io.imread(apple_image_url))) # Spaghetti, I am yet to find a better and more glorious solution than this
 r_appl = appl[:,:,0]
 g_appl = appl[:,:,1]
@@ -159,19 +196,45 @@ fig, ax = plt.subplots(2, 4)
 
 # Plotting the original image and the filters
 ax[0][0].imshow(appl, cmap='gray')
+ax[0][0].set_xticks([])
+ax[0][0].set_yticks([])
+ax[0][0].set_title("Original image")
 ax[0][1].imshow(appl5, cmap='gray')
+ax[0][1].set_xticks([])
+ax[0][1].set_yticks([])
+ax[0][1].set_title("Original 5x5 mean filter")
 ax[0][2].imshow(appl11, cmap='gray')
+ax[0][2].set_xticks([])
+ax[0][2].set_yticks([])
+ax[0][2].set_title("Original 11x11 mean filter")
 ax[0][3].imshow(appl19, cmap='gray')
-
+ax[0][3].set_xticks([])
+ax[0][3].set_yticks([])
+ax[0][3].set_title("Original 19x19 mean filter")
 # Plotting the salt and pepper noised image and the filters
 ax[1][0].imshow(sandpappl, cmap='gray')
+ax[1][0].set_xticks([])
+ax[1][0].set_yticks([])
+ax[1][0].set_title("Original noisy image")
 ax[1][1].imshow(sandpaple5, cmap='gray')
+ax[1][1].set_xticks([])
+ax[1][1].set_yticks([])
+ax[1][1].set_title("Noisy 5x5 mean filter")
 ax[1][2].imshow(sandpaple11, cmap='gray')
+ax[1][2].set_xticks([])
+ax[1][2].set_yticks([])
+ax[1][2].set_title("Noisy 11x11 mean filter")
 ax[1][3].imshow(sandpaple19, cmap='gray')
+ax[1][3].set_xticks([])
+ax[1][3].set_yticks([])
+ax[1][3].set_title("Noisy 15x15 mean filter")
+
 
 plt.show()
 """
+"""
 
+"""
 """
 Task 4 Gaussian filter on GRAYSCALE fruits image
 - load fruits image¨
@@ -212,7 +275,7 @@ def apply_gaussian_filter(image, sigma, filter_size):
             out[i, j] = np.sum(wee * kernel) # weighted average
     return out
 
-"""
+
 fruits_image_url = ("https://raw.githubusercontent.com/opencv/opencv/master/samples/data/fruits.jpg")
 
 frimage = np.array(img_as_float(io.imread(fruits_image_url, as_gray=True)))
@@ -229,13 +292,63 @@ gosh_goshed_frimage_ohno = apply_gaussian_filter(goshed_frimage_ohno, 2, 3)
 fig, ax = plt.subplots(2, 2)
 
 ax[0, 0].imshow(frimage, cmap='gray')
+ax[0][0].set_xticks([])
+ax[0][0].set_yticks([])
+ax[0][0].set_title("Original image")
 ax[0, 1].imshow(gosh_frimage, cmap='gray')
+ax[0][1].set_xticks([])
+ax[0][1].set_yticks([])
+ax[0][1].set_title("Original with gaussian filter")
 ax[1, 0].imshow(goshed_frimage_ohno, cmap='gray')
+ax[1][0].set_xticks([])
+ax[1][0].set_yticks([])
+ax[1][0].set_title("Original noisy image")
 ax[1, 1].imshow(gosh_goshed_frimage_ohno, cmap='gray')
+ax[1][1].set_xticks([])
+ax[1][1].set_yticks([])
+ax[1][1].set_title("Noisy with gaussian filter")
 plt.show()
+
+
+ax[0][0].imshow(appl, cmap='gray')
+ax[0][0].set_xticks([])
+ax[0][0].set_yticks([])
+ax[0][0].set_title("Original image")
+ax[0][1].imshow(appl5, cmap='gray')
+ax[0][1].set_xticks([])
+ax[0][1].set_yticks([])
+ax[0][1].set_title("Original 5x5 mean filter")
+ax[0][2].imshow(appl11, cmap='gray')
+ax[0][2].set_xticks([])
+ax[0][2].set_yticks([])
+ax[0][2].set_title("Original 11x11 mean filter")
+ax[0][3].imshow(appl19, cmap='gray')
+ax[0][3].set_xticks([])
+ax[0][3].set_yticks([])
+ax[0][3].set_title("Original 19x19 mean filter")
+# Plotting the salt and pepper noised image and the filters
+ax[1][0].imshow(spappl, cmap='gray')
+ax[1][0].set_xticks([])
+ax[1][0].set_yticks([])
+ax[1][0].set_title("Original noisy image")
+ax[1][1].imshow(spappl5, cmap='gray')
+ax[1][1].set_xticks([])
+ax[1][1].set_yticks([])
+ax[1][1].set_title("Noisy 5x5 mean filter")
+ax[1][2].imshow(spappl11, cmap='gray')
+ax[1][2].set_xticks([])
+ax[1][2].set_yticks([])
+ax[1][2].set_title("Noisy 11x11 mean filter")
+ax[1][3].imshow(spappl19, cmap='gray')
+ax[1][3].set_xticks([])
+ax[1][3].set_yticks([])
+ax[1][3].set_title("Noisy 15x15 mean filter")
+
 """
 
 
+
+"""
 """
 Task 5: The exact same but with laplacian filter for building 
 """
@@ -370,7 +483,7 @@ def apply_sobel_filter(image, dir):
             out[i, j] = np.sum(wee * kernel) # weighted average
     return out
 
-
+"""
 blox_url = ("https://raw.githubusercontent.com/opencv/opencv/master/samples/data/blox.jpg")
 
 bloximage = np.array(img_as_float(io.imread(blox_url)))
@@ -388,3 +501,5 @@ ax[2].imshow(sobgbloximagey, cmap='gray')
 ax[3].imshow(magnitude_sobgbbloximagexsobgbloximagey, cmap='gray')
 
 plt.show()
+
+"""
