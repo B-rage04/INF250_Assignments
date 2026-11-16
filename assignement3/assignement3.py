@@ -275,7 +275,7 @@ def apply_gaussian_filter(image, sigma, filter_size):
             out[i, j] = np.sum(wee * kernel) # weighted average
     return out
 
-
+"""
 fruits_image_url = ("https://raw.githubusercontent.com/opencv/opencv/master/samples/data/fruits.jpg")
 
 frimage = np.array(img_as_float(io.imread(fruits_image_url, as_gray=True)))
@@ -344,7 +344,6 @@ ax[1][3].set_xticks([])
 ax[1][3].set_yticks([])
 ax[1][3].set_title("Noisy 15x15 mean filter")
 
-"""
 
 
 
@@ -375,7 +374,6 @@ def apply_laplacian_filter(image, diagonal):
     return out
 
 """
-
 building_URL = ("https://raw.githubusercontent.com/opencv/opencv/master/samples/data/building.jpg")
 
 bimage = np.array(img_as_float(io.imread(building_URL, as_gray=True)))
@@ -385,12 +383,22 @@ diagolabimage = apply_laplacian_filter(bimage, diagonal=True)
 fig, ax = plt.subplots(1, 3)
 
 ax[0].imshow(bimage, cmap='gray')
+ax[0].set_xticks([])
+ax[0].set_yticks([])
+ax[0].set_title("Original building image")
 ax[1].imshow(labimage, cmap='gray')
+ax[1].set_xticks([])
+ax[1].set_yticks([])
+ax[1].set_title("Image with laplacian diagonal=False")
 ax[2].imshow(diagolabimage, cmap='gray')
+ax[2].set_xticks([])
+ax[2].set_yticks([])
+ax[2].set_title("Image with laplacian diagonal=False")
 
 plt.show()
 """
-
+"""
+"""
 """ 
 Task 6: laplacian edge stuff + image sharpening
 - get the building image
@@ -412,9 +420,17 @@ bimagpluslabimage = np.clip(bimage - labimage, 0, 1) # Kernel has negative cente
 fig, ax = plt.subplots(1, 3)
 
 ax[0].imshow(bimage, cmap='gray')
+ax[0].set_xticks([])
+ax[0].set_yticks([])
+ax[0].set_title("Original building image")
 ax[1].imshow(labimage, cmap='gray')
+ax[1].set_xticks([])
+ax[1].set_yticks([])
+ax[1].set_title("Edge Detection")
 ax[2].imshow(bimagpluslabimage, cmap='gray')
-
+ax[2].set_xticks([])
+ax[2].set_yticks([])
+ax[2].set_title("Sharpened Image")
 plt.show()
 """
 
@@ -429,8 +445,8 @@ task 7 laplacian sharpening, overshoot and halo effects
 note to Brage, denne oppgaven mangler den 1D delen
 Alle oppgavene mangles at puttes i en pdf også tihi
 """
-
 """
+
 boterfli_URL = ("https://raw.githubusercontent.com/opencv/opencv/master/samples/data/butterfly.jpg")
 
 boterflimage = np.array(img_as_float(io.imread(boterfli_URL, as_gray=True)))
@@ -446,6 +462,7 @@ for idx, (ax, arr) in enumerate(zip(ax, sharpor)):
     im = ax.imshow(arr, cmap='gray', vmin=0, vmax=1)
 
 plt.show()
+
 """
 
 """
@@ -483,7 +500,7 @@ def apply_sobel_filter(image, dir):
             out[i, j] = np.sum(wee * kernel) # weighted average
     return out
 
-"""
+
 blox_url = ("https://raw.githubusercontent.com/opencv/opencv/master/samples/data/blox.jpg")
 
 bloximage = np.array(img_as_float(io.imread(blox_url)))
@@ -496,10 +513,21 @@ magnitude_sobgbbloximagexsobgbloximagey = np.sqrt(sobgbloximagex**2 + sobgbloxim
 
 fig, ax = plt.subplots(1, 4)
 ax[0].imshow(gbloximage, cmap='gray')
+ax[0].set_xticks([])
+ax[0].set_yticks([])
+ax[0].set_title("Grayscale image")
 ax[1].imshow(sobgbloximagex, cmap='gray')
+ax[1].set_xticks([])
+ax[1].set_yticks([])
+ax[1].set_title("Horizontal Sobel filter")
 ax[2].imshow(sobgbloximagey, cmap='gray')
+ax[2].set_xticks([])
+ax[2].set_yticks([])
+ax[2].set_title("Vertical Sobel filter")
 ax[3].imshow(magnitude_sobgbbloximagexsobgbloximagey, cmap='gray')
+ax[3].set_xticks([])
+ax[3].set_yticks([])
+ax[3].set_title("Edges detected by sobel")
 
 plt.show()
 
-"""
