@@ -500,7 +500,7 @@ def apply_sobel_filter(image, dir):
             out[i, j] = np.sum(wee * kernel) # weighted average
     return out
 
-
+"""
 blox_url = ("https://raw.githubusercontent.com/opencv/opencv/master/samples/data/blox.jpg")
 
 bloximage = np.array(img_as_float(io.imread(blox_url)))
@@ -531,3 +531,155 @@ ax[3].set_title("Edges detected by sobel")
 
 plt.show()
 
+"""
+
+## Task 9 ##
+
+
+def apply_median_filter(image, filter_size):
+    """
+    image: 2D array
+    size: the size of the median filter, eg: 3 = 3x3 median filter
+    """
+    k = filter_size // 2 # given that the size input is an odd number, this will work
+    padded = np.pad(image, k, 'constant', constant_values=0) # pad the image so the negative values don't loop around
+
+    h, w = image.shape
+    out = np.zeros((h, w))
+    for i in range(h):
+        for j in range(w):
+            out[i][j] = np.median(padded[i+k-k:i+k+k+1, j+k-k:j+k+k+1]) # Spaghetti fixes everything
+
+    return out
+
+"""
+
+brick = data.brick()
+noisy_brick_gaus = random_noise(brick)
+noisy_brick_sp = random_noise(brick, mode='s&p')
+
+mean_brick = apply_mean_filter(brick, 5)
+mean_brick_gaus = apply_mean_filter(noisy_brick_gaus, 5)
+mean_brick_sp = apply_mean_filter(noisy_brick_sp, 5)
+
+median_brick = apply_median_filter(brick, 5)
+median_brick_gaus = apply_median_filter(noisy_brick_gaus, 5)
+median_brick_sp = apply_median_filter(noisy_brick_sp, 5)
+
+
+fig, ax = plt.subplots(2, 3)
+ax[0][0].imshow(brick, cmap='gray')
+ax[0][0].set_xticks([])
+ax[0][0].set_yticks([])
+ax[0][0].set_title("Grayscale brick image")
+ax[0][1].imshow(noisy_brick_gaus, cmap='gray')
+ax[0][1].set_xticks([])
+ax[0][1].set_yticks([])
+ax[0][1].set_title("Brick with gaussian noise")
+ax[1][0].imshow(noisy_brick_sp, cmap='gray')
+ax[1][0].set_xticks([])
+ax[1][0].set_yticks([])
+ax[1][0].set_title("Brick with S&P noise")
+
+
+ax[0][2].imshow(mean_brick_gaus, cmap='gray')
+ax[0][2].set_xticks([])
+ax[0][2].set_yticks([])
+ax[0][2].set_title("Brick with gaussian noise mean filter")
+ax[1][1].imshow(mean_brick_sp, cmap='gray')
+ax[1][1].set_xticks([])
+ax[1][1].set_yticks([])
+ax[1][1].set_title("Brick with S&P noise Mean filter")
+
+
+
+ax[1][2].imshow(median_brick_sp, cmap='gray')
+ax[1][2].set_xticks([])
+ax[1][2].set_yticks([])
+ax[1][2].set_title("Brick with S&P noise median filter")
+
+plt.show()
+
+"""
+
+## Task 10 ##
+
+
+def apply_maximum_filter(image, filter_size):
+    """
+    image: 2D array
+    size: the size of the maximum filter, eg: 3 = 3x3 maximum filter
+    """
+    k = filter_size // 2 # given that the size input is an odd number, this will work
+    padded = np.pad(image, k, 'constant', constant_values=0) # pad the image so the negative values don't loop around
+
+    h, w = image.shape
+    out = np.zeros((h, w))
+    for i in range(h):
+        for j in range(w):
+            out[i][j] = np.max(padded[i+k-k:i+k+k+1, j+k-k:j+k+k+1]) # Spaghetti fixes everything
+
+    return out
+
+bab_image_url = ("https://raw.githubusercontent.com/opencv/opencv/master/samples/data/baboon.jpg")
+babimage = np.array(img_as_float(io.imread(bab_image_url, as_gray=True)))
+
+bab_max = apply_maximum_filter(babimage, 3)
+
+bab_fin = babimage - bab_max
+
+fig, ax = plt.subplots(1, 3)
+
+ax[0].imshow(babimage, cmap="gray")
+ax[0].set_xticks([])
+ax[0].set_yticks([])
+ax[0].set_title("Original baboon image")
+ax[1].imshow(bab_max, cmap="gray")
+ax[1].set_xticks([])
+ax[1].set_yticks([])
+ax[1].set_title(" baboon image max filter")
+ax[2].imshow(bab_fin, cmap="gray")
+ax[2].set_xticks([])
+ax[2].set_yticks([])
+ax[2].set_title("baboon image subtracted max image")
+
+
+plt.show()
+
+
+def apply_minimum_filter(image, filter_size):
+    """
+    image: 2D array
+    size: the size of the minimum filter, eg: 3 = 3x3 minimum filter
+    """
+    k = filter_size // 2 # given that the size input is an odd number, this will work
+    padded = np.pad(image, k, 'constant', constant_values=0) # pad the image so the negative values don't loop around
+
+    h, w = image.shape
+    out = np.zeros((h, w))
+    for i in range(h):
+        for j in range(w):
+            out[i][j] = np.min(padded[i+k-k:i+k+k+1, j+k-k:j+k+k+1]) # Spaghetti fixes everything
+
+    return out
+
+bab_min = apply_minimum_filter(babimage,3)
+
+bab_min_fin = babimage - bab_min
+
+fig, ax = plt.subplots(1, 3)
+
+ax[0].imshow(babimage, cmap="gray")
+ax[0].set_xticks([])
+ax[0].set_yticks([])
+ax[0].set_title("Original baboon image")
+ax[1].imshow(bab_min, cmap="gray")
+ax[1].set_xticks([])
+ax[1].set_yticks([])
+ax[1].set_title(" baboon image min filter")
+ax[2].imshow(bab_min_fin, cmap="gray")
+ax[2].set_xticks([])
+ax[2].set_yticks([])
+ax[2].set_title("baboon image subtracted min image")
+
+plt.show()
