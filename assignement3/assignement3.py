@@ -445,8 +445,8 @@ task 7 laplacian sharpening, overshoot and halo effects
 note to Brage, denne oppgaven mangler den 1D delen
 Alle oppgavene mangles at puttes i en pdf også tihi
 """
-"""
 
+"""
 boterfli_URL = ("https://raw.githubusercontent.com/opencv/opencv/master/samples/data/butterfly.jpg")
 
 boterflimage = np.array(img_as_float(io.imread(boterfli_URL, as_gray=True)))
@@ -460,9 +460,32 @@ fig, ax = plt.subplots(1, len(sharpor))
 
 for idx, (ax, arr) in enumerate(zip(ax, sharpor)):
     im = ax.imshow(arr, cmap='gray', vmin=0, vmax=1)
+    ax.set_xticks([])
+    ax.set_yticks([])
+    ax.set_title(f"Image with c value: {c_list[idx]}")
+
 
 plt.show()
 
+
+row = laboterflimage.shape[0] // 2   # Pick the middle row of the image as our scan line
+
+plt.figure(figsize=(12, 6))
+plt.plot(laboterflimage[row, :], label="Original", linewidth=1.5)
+
+for c, raw in zip(c_list, sharpor):
+    plt.plot(raw[row, :], label=f"Sharpened (c={c}) - unclipped", linewidth=1)
+
+# Reference lines showing the valid pixel range [0, 255]
+plt.axhline(255, color="gray", linestyle="--", linewidth=0.8, label="Max valid (255)")
+plt.axhline(0, color="gray", linestyle="--", linewidth=0.8, label="Min valid (0)")
+
+plt.title(f"Intensity Profile Along Row {row}: Overshoot Beyond [0, 255] Range")
+plt.xlabel("Column (pixel position)")
+plt.ylabel("Intensity value")
+plt.legend()
+plt.tight_layout()
+plt.show()
 """
 
 """
@@ -621,6 +644,8 @@ def apply_maximum_filter(image, filter_size):
 
     return out
 
+
+"""
 bab_image_url = ("https://raw.githubusercontent.com/opencv/opencv/master/samples/data/baboon.jpg")
 babimage = np.array(img_as_float(io.imread(bab_image_url, as_gray=True)))
 
@@ -646,7 +671,9 @@ ax[2].set_title("baboon image subtracted max image")
 
 plt.show()
 
+## Task 11 ##
 
+"""
 def apply_minimum_filter(image, filter_size):
     """
     image: 2D array
@@ -662,7 +689,7 @@ def apply_minimum_filter(image, filter_size):
             out[i][j] = np.min(padded[i+k-k:i+k+k+1, j+k-k:j+k+k+1]) # Spaghetti fixes everything
 
     return out
-
+"""
 bab_min = apply_minimum_filter(babimage,3)
 
 bab_min_fin = babimage - bab_min
@@ -683,3 +710,4 @@ ax[2].set_yticks([])
 ax[2].set_title("baboon image subtracted min image")
 
 plt.show()
+"""
